@@ -1,0 +1,63 @@
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <mat-form-field appearance="fill">
+      <mat-label>Epsilon</mat-label>
+      <input matInput type="number" formControlName="epsilon" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>N</mat-label>
+      <input matInput type="number" formControlName="n" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>MinPts</mat-label>
+      <input matInput type="number" formControlName="minPts" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Number of Files</mat-label>
+      <input matInput type="number" formControlName="numberFiles" required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Run Algorithm</button>
+  </form>
+
+  <div *ngIf="results" class="results">
+    <!-- List items -->
+    <mat-card class="item-card">
+      <mat-card-header>
+        <mat-card-title>Text Documents</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-grid-list cols="4" rowHeight="2:1" gutterSize="10px">
+          <mat-grid-tile *ngFor="let item of results?.list; let i = index">
+            <mat-card class="item-card-inner">
+              <mat-card-header>
+                <mat-card-title>{{i}}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                {{item}}
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Indices -->
+    <mat-card class="indices-card">
+      <mat-card-header>
+        <mat-card-title>Clusters</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngFor="let key of results?.indices | keyvalue">
+          <mat-card class="indices-card-inner">
+            <mat-card-header>
+              <mat-card-title>Cluster {{key.key}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              Documents: {{key.value}}
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
